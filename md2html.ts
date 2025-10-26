@@ -6,9 +6,12 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
 import remarkGfm from 'remark-gfm'
+import remarkToc from 'remark-toc'
 import rehypeShiki from '@shikijs/rehype'
 import rehypeMermaid from 'rehype-mermaid'
 import rehypeMathjax from 'rehype-mathjax/chtml'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 // shiki transformers
 import {
     transformerColorizedBrackets
@@ -35,6 +38,7 @@ const langs = ['c', 'cpp', 'python', 'js', 'ts', 'java', 'rust', 'go', 'bash', '
 
 const processor = unified()
     .use(remarkParse)
+    .use(remarkToc, { maxDepth: 3, ordered: true })
     .use(remarkFrontmatter)
     .use(remarkDirective)
     .use(remarkCodeMeta)
@@ -50,6 +54,10 @@ const processor = unified()
             fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2'
         }
     })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+        behavior: 'wrap',
+    });
 
 export async function md2html(markdown: string, config: any): Promise<string> {
     // configure shiki

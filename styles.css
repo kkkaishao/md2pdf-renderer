@@ -14,12 +14,12 @@
     @top-right {
         content: string(chapter-title);
         color: #999;
-        font-style: italic;
         font-size: 10px;
         vertical-align: bottom;
         padding-bottom: 0.5em;
         margin-bottom: 1.5em;
-        border-bottom: 1px solid #ddd;
+        padding-right: 2em;
+        /* border-bottom: 1px solid #ddd; */
     }
 
     @bottom-center {
@@ -28,6 +28,7 @@
         font-size: 10px;
         vertical-align: top;
         padding-top: 1.0em;
+        margin-top: 1.0em;
         border-top: 1px solid #ddd;
     }
 }
@@ -83,12 +84,7 @@ h1 {
     margin-bottom: 36px;
     counter-increment: chapter;
     counter-reset: section;
-}
-
-h1+p,
-h2+p,
-h3+p {
-    break-before: avoid;
+    font-family: var(--font-section);
 }
 
 h1::before {
@@ -97,7 +93,7 @@ h1::before {
 }
 
 h2 {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: 1.5rem;
     counter-increment: section;
@@ -143,10 +139,9 @@ p {
     max-width: 100%;
     margin-block: 1rem;
     border-radius: 8px;
-    /* padding-block: 0.5rem; */
-    /* padding-inline: 1rem; */
     border: 1px solid var(--border);
     background-color: oklch(96.7% 0.003 264.542);
+    break-inside: avoid;
     /* box-shadow: 0 0 1px 0 oklch(92.8% 0.006 264.531); */
 }
 
@@ -303,12 +298,22 @@ html.dark .shiki span {
     background-color: rgba(244, 63, 94, .08);
 }
 
-a:not(h2 a):not(h3 a):not(h4 a):not(h5 a) {
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+a:not(h1 a):not(h2 a):not(h3 a):not(h4 a):not(h5 a) {
+    color: #72aee6; 
+}
+
+a[href^="http"] {
     text-decoration: underline;
     text-underline-offset: 4px;
 }
 
-a::after {
+/* select external only */
+a[href^="http"]::after {
     content: "";
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23808080'%3E%3Cpath d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/%3E%3C/svg%3E");
     vertical-align: middle;
