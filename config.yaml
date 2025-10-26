@@ -1,0 +1,21 @@
+# Shiki highlight themes
+# light themes are recommended for PDF output
+# available themes can be found at:
+# https://shiki.style/themes
+# default: 'github-light'
+theme: 'github-light'
+
+
+# add addtional languages for syntax highlighting
+# default enabled:
+# 'c', 'cpp', 'python', 'js', 'ts', 'java', 'rust', 'go', 'bash', 'json', 'yaml', 'markdown', 'bash', 'plaintext', 'cmake', 'css', 'diff', 'docker', 'fish', 'jsx', 'tsx', 'xml', 'latex', 'makefile', 'regexp', 'scala', 'tcl', 'verilog', 'system-verilog', 'vhdl', 'llvm', mlir, tblgen;
+# to add more, list them here
+# languages supported by shiki can be found at:
+# https://shiki.style/languages
+
+# langs:
+#   - python
+
+
+# PDF options
+title: 'Document Title'

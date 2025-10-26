@@ -1,0 +1,338 @@
+:root {
+    font-family: 'Source Han Serif SC', serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+    font-size: 12px;
+    font-weight: 400;
+    --font-mono: 'Source Code Pro', 'LXGW Wenkai Mono', monospace;
+    --border: oklch(0.922 0 0);
+    --font-sans: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-section: 'PT Serif Caption', serif;
+}
+
+@page {
+    margin: 1.5cm 1.75cm;
+
+    @top-right {
+        content: string(chapter-title);
+        color: #999;
+        font-style: italic;
+        font-size: 10px;
+        vertical-align: bottom;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    @bottom-center {
+        content: counter(page) " / " counter(pages);
+        color: #999;
+        font-size: 10px;
+        vertical-align: top;
+        padding-top: 1.0em;
+        border-top: 1px solid #ddd;
+    }
+}
+
+body {
+    counter-reset: chapter;
+    color: #333;
+}
+
+code {
+    font-family: 'Source Code Pro', 'LXGW Wenkai Mono', monospace;
+}
+
+code:not(pre > code) {
+    font-size: 10px;
+    display: inline-block;
+    padding-inline: 4px;
+    padding-block: 1px;
+    white-space: nowrap;
+    background-color: color-mix(in oklab, hsl(239 4.88% 83.92%) 40%, transparent);
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code {
+    font-size: unset !important;
+}
+
+
+h1:not(:first-child) {
+    break-before: page;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+li {
+    overflow-wrap: break-word;
+}
+
+h1 {
+    /* align center */
+    string-set: chapter-title content(text);
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 36px;
+    counter-increment: chapter;
+    counter-reset: section;
+}
+
+h1+p,
+h2+p,
+h3+p {
+    break-before: avoid;
+}
+
+h1::before {
+    content: "Chapter " counter(chapter) ": ";
+    font-family: var(--font-section);
+}
+
+h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    counter-increment: section;
+    counter-reset: subsection;
+}
+
+h2::before {
+    content: counter(chapter) "." counter(section) " ";
+    font-family: var(--font-section);
+}
+
+h3 {
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    font-size: 1.4rem;
+    counter-increment: subsection;
+}
+
+h3::before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) " ";
+    font-family: var(--font-section);
+}
+
+h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+h5 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+p {
+    margin-block: 2px;
+    line-height: 1.6;
+}
+
+.code-block {
+    width: 100%;
+    max-width: 100%;
+    margin-block: 1rem;
+    border-radius: 8px;
+    /* padding-block: 0.5rem; */
+    /* padding-inline: 1rem; */
+    border: 1px solid var(--border);
+    background-color: oklch(96.7% 0.003 264.542);
+    /* box-shadow: 0 0 1px 0 oklch(92.8% 0.006 264.531); */
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    position: relative;
+}
+
+.code-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.code-buttons .red {
+    /* // w-3 h-3 rounded-full bg-[#ff5f56] */
+    width: 0.75em;
+    height: 0.75em;
+    background-color: #ff5f56;
+    border-radius: 50%;
+}
+
+.code-buttons .yellow {
+    /* w - 3 h - 3 rounded - full bg - [#ffbd2e] */
+    width: 0.75em;
+    height: 0.75em;
+    background-color: #ffbd2e;
+    border-radius: 50%;
+}
+
+.code-buttons .green {
+    /* w-3 h-3 rounded-full bg-[#27c93f] */
+    width: 0.75em;
+    height: 0.75em;
+    background-color: #27c93f;
+    border-radius: 50%;
+}
+
+.code-title {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    font-size: 0.7rem;
+    font-weight: bold;
+    font-family: var(--font-mono);
+    max-width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+pre {
+    position: relative;
+    z-index: 1;
+    overflow-x: auto;
+}
+
+pre,
+code {
+    hyphens: none;
+    text-align: left;
+    /* word-wrap: normal; */
+    tab-size: 4;
+    -o-tab-size: 4;
+    -moz-tab-size: 4;
+    white-space: pre;
+    /* word-spacing: normal; */
+    direction: ltr;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.shiki {
+    margin: 0;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.8rem 1.5rem;
+    background: rgb(252, 252, 252) !important;
+    tab-size: 4;
+    line-height: 1.5;
+    font-size: 10px;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom: 0.5px solid var(--border);
+    white-space: pre;
+    overflow-wrap: break-word;
+}
+
+.shiki code {
+    display: block;
+    counter-reset: step;
+    margin-inline: 1.5rem;
+    text-align: left;
+}
+
+.shiki code .line {
+    counter-increment: step;
+}
+
+.shiki code .line::before {
+    content: counter(step);
+    width: 1rem;
+    margin-left: 0.5rem;
+    position: absolute;
+    left: 0.5rem;
+    text-align: right;
+    user-select: none;
+    color: oklch(70.5% 0.015 286.067);
+}
+
+.shiki code .line.highlighted,
+.shiki code .line.diff {
+    display: inline-block;
+    width: calc(100% + 6rem);
+    margin-left: -3rem;
+    padding-left: 3rem;
+}
+
+.shiki code .line.diff.add::before {
+    content: "+";
+}
+
+.shiki code .line.diff.remove::before {
+    content: "-";
+}
+
+.shiki code .line.diff.add {
+    background-color: rgba(16, 185, 129, .14);
+}
+
+.shiki code .line.diff.remove {
+    background-color: rgba(244, 63, 94, .14);
+    opacity: 0.6;
+}
+
+.shiki code .line.highlighted {
+    background-color: rgba(209, 213, 220, 0.4);
+}
+
+.shiki code .line.highlighted.warning {
+    background-color: rgba(255, 219, 97, .20);
+}
+
+.shiki code .line.highlighted.error {
+    background-color: rgba(244, 63, 94, .08);
+}
+
+a:not(h2 a):not(h3 a):not(h4 a):not(h5 a) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+a::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23808080'%3E%3Cpath d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/%3E%3C/svg%3E");
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    margin-inline: 0.25rem;
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+ul {
+    list-style-type: disc;
+    margin-inline-start: 2em;
+    padding-inline-start: 1em;
+}
+
+ol {
+    list-style-type: decimal;
+    margin-inline-start: 2em;
+    padding-inline-start: 1em;
+}
+
+img {
+    margin-inline: auto;
+    display: block;
+}
